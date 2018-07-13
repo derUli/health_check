@@ -1,0 +1,7 @@
+{
+   "id" : "health_check",
+   "version" : "1.0",
+   "description" : "System health check",
+   "categories" : ["admin", "health", "check"],
+   "compatible_from" : "2018.3.5"
+}
