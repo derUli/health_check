@@ -41,7 +41,7 @@ $css = version_compare($controller->getMySQLVersion(), "5.5.3", '>=') ? $cssOk :
 				<td><?php esc($controller->getMySQLVersion());?></td>
 			</tr>
 <?php
-$success = file_get_contents_wrapper("https://www.ulicms.de/", true) ? $checkOk : $checkFailed;
+@$success = file_get_contents_wrapper("https://www.ulicms.de/", true) ? $checkOk : $checkFailed;
 $symbol = $success ? $checkOk : $checkFailed;
 $yesNo = $success ? get_translation("yes") : get_translation("no");
 $css = $success ? $cssOk : $cssFailed;
@@ -53,7 +53,7 @@ $css = $success ? $cssOk : $cssFailed;
 				<td><?php esc($yesNo);?></td>
 			</tr>
 <?php
-$success = file_get_contents_wrapper(ModuleHelper::getBaseUrl("/.txt"), true);
+@$success = file_get_contents_wrapper(ModuleHelper::getBaseUrl("/.txt"), true);
 $symbol = $success ? $checkOk : $checkFailed;
 $yesNo = $success ? get_translation("yes") : get_translation("no");
 $css = $success ? $cssOk : $cssFailed;
