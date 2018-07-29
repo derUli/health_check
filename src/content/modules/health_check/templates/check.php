@@ -1,5 +1,5 @@
 <?php
-$controller = ControllerRegistry::get("HealthCheckController");
+$controller = ControllerRegistry::get ( "HealthCheckController" );
 
 $checkOk = "✓";
 $checkFailed = "✗";
@@ -20,8 +20,8 @@ $cssFailed = "text-center text-danger text-red";
 		<tbody>
 			<tr>
 <?php
-$symbol = version_compare(phpversion(), "5.6", ">=") ? $checkOk : $checkFailed;
-$css = version_compare(phpversion(), "5.6", ">=") ? $cssOk : $cssFailed;
+$symbol = version_compare ( phpversion (), "5.6", ">=" ) ? $checkOk : $checkFailed;
+$css = version_compare ( phpversion (), "5.6", ">=" ) ? $cssOk : $cssFailed;
 ?>
 <td class="<?php esc($css)?>" style="width: 30px;"><?php echo $symbol;?></td>
 				<td>PHP Version</td>
@@ -30,8 +30,8 @@ $css = version_compare(phpversion(), "5.6", ">=") ? $cssOk : $cssFailed;
 			</tr>
 			<tr>
 <?php
-$symbol = version_compare($controller->getMySQLVersion(), "5.5.3", '>=') ? $checkOk : $checkFailed;
-$css = version_compare($controller->getMySQLVersion(), "5.5.3", '>=') ? $cssOk : $cssFailed;
+$symbol = version_compare ( $controller->getMySQLVersion (), "5.5.3", '>=' ) ? $checkOk : $checkFailed;
+$css = version_compare ( $controller->getMySQLVersion (), "5.5.3", '>=' ) ? $cssOk : $cssFailed;
 ?>
 	    
 
@@ -41,9 +41,9 @@ $css = version_compare($controller->getMySQLVersion(), "5.5.3", '>=') ? $cssOk :
 				<td><?php esc($controller->getMySQLVersion());?></td>
 			</tr>
 <?php
-@$success = file_get_contents_wrapper("https://www.ulicms.de/", true) ? $checkOk : $checkFailed;
+@$success = file_get_contents_wrapper ( "https://www.ulicms.de/", true ) ? $checkOk : $checkFailed;
 $symbol = $success ? $checkOk : $checkFailed;
-$yesNo = $success ? get_translation("yes") : get_translation("no");
+$yesNo = $success ? get_translation ( "yes" ) : get_translation ( "no" );
 $css = $success ? $cssOk : $cssFailed;
 ?>
 <tr>
@@ -52,10 +52,30 @@ $css = $success ? $cssOk : $cssFailed;
 				<td><?php translate("yes");?></td>
 				<td><?php esc($yesNo);?></td>
 			</tr>
+			<?php
+			
+			$symbol = "❓";
+			$yesNo = get_translation ( "unknown" );
+			$css = "text-center text-danger";
+			
+			if (function_exists ( "apache_get_modules" )) {
+				$success = in_array ( "mod_rewrite", apache_get_modules () );
+				$yesNo = $success ? get_translation ( "yes" ) : get_translation ( "no" );
+				$css = $success ? $cssOk : $cssFailed;
+				$symbol = $success ? $checkOk : $checkFailed;
+			}
+			?>
+<tr>
+
+				<td class="<?php esc($css);?>"><?php echo $symbol;?></td>
+				<td><?php translate("mod_rewrite_enabled");?></td>
+				<td><?php translate("yes");?></td>
+				<td><?php esc($yesNo);?></td>
+			</tr>
 <?php
-@$success = file_get_contents_wrapper(ModuleHelper::getBaseUrl("/.txt"), true);
+@$success = file_get_contents_wrapper ( ModuleHelper::getBaseUrl ( "/.txt" ), true );
 $symbol = $success ? $checkOk : $checkFailed;
-$yesNo = $success ? get_translation("yes") : get_translation("no");
+$yesNo = $success ? get_translation ( "yes" ) : get_translation ( "no" );
 $css = $success ? $cssOk : $cssFailed;
 ?>
 <tr>
@@ -66,23 +86,23 @@ $css = $success ? $cssOk : $cssFailed;
 			</tr>
 <?php
 
-$requiredExtensions = array(
-    "mysqli",
-    "gd",
-    "json",
-    "mbstring",
-    "openssl",
-    "dom",
-    "xml"
+$requiredExtensions = array (
+		"mysqli",
+		"gd",
+		"json",
+		"mbstring",
+		"openssl",
+		"dom",
+		"xml" 
 );
 ?>
 <?php foreach($requiredExtensions as $extension){?>
 <?php
-    $success = extension_loaded($extension);
-    $symbol = $success ? $checkOk : $checkFailed;
-    $yesNo = $success ? get_translation("yes") : get_translation("no");
-    $css = $success ? $cssOk : $cssFailed;
-    ?>
+	$success = extension_loaded ( $extension );
+	$symbol = $success ? $checkOk : $checkFailed;
+	$yesNo = $success ? get_translation ( "yes" ) : get_translation ( "no" );
+	$css = $success ? $cssOk : $cssFailed;
+	?>
 <tr>
 
 				<td class="<?php esc($css);?>"><?php echo $symbol;?></td>
