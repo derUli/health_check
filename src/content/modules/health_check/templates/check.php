@@ -20,12 +20,12 @@ $cssFailed = "text-center text-danger text-red";
 		<tbody>
 			<tr>
 <?php
-$symbol = version_compare ( phpversion (), "5.6", ">=" ) ? $checkOk : $checkFailed;
-$css = version_compare ( phpversion (), "5.6", ">=" ) ? $cssOk : $cssFailed;
+$symbol = version_compare ( phpversion (), "7.2", ">=" ) ? $checkOk : $checkFailed;
+$css = version_compare ( phpversion (), "7.2", ">=" ) ? $cssOk : $cssFailed;
 ?>
 <td class="<?php esc($css)?>" style="width: 30px;"><?php echo $symbol;?></td>
 				<td>PHP Version</td>
-				<td>5.6</td>
+				<td>7.2</td>
 				<td><?php esc(phpversion());?></td>
 			</tr>
 			<tr>
